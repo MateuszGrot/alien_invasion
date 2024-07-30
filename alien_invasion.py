@@ -4,6 +4,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 
+
 class AlienInvasion:
     '''Klasa przeznaczona do zarządzania zasobami i sposobem działania gry'''
 
@@ -19,14 +20,22 @@ class AlienInvasion:
     def run_game(self):
         '''Rozpoczęcie pętli głównej gry.'''
         while True:
-            # Oczekiwanie na naciśnięcie klawisza lub przycisku myszy.
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-                pygame.display.flip()
-                self.clock.tick(60)
-            self.screen.fill(self.settings.bg_color)
-            self.ship.blitme()
+            self._check_events()
+            self._update_screen()
+            self.clock.tick(60)
+
+
+
+    def _check_events(self):
+        # Oczekiwanie na naciśnięcie klawisza lub przycisku myszy.
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+
+    def _update_screen(self):
+        self.screen.fill(self.settings.bg_color)
+        self.ship.blitme()
+        pygame.display.flip()
 
 if __name__ == '__main__':
     ai = AlienInvasion()
